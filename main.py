@@ -4,6 +4,11 @@ from network import get_subnet_mask
 from network import get_default_gateway
 from network import get_dns_server
 from ports import get_listening_ports, test_connection
+import json
+
+def save_network_data(data):
+    with open("network.json", "w") as file:
+        json.dump(data, file, indent=4)
 
 
 
@@ -53,6 +58,19 @@ def main():
     print("Network:", network)
     print("Network Address:", network.network_address)
     print("Broadcast Address:", network.broadcast_address)
+
+
+    data = {
+        "hostname": hostname,
+        "ipv4_address": ip_address,
+        "subnet_mask": subnet_mask,
+        "default_gateway": gateway,
+        "dns_server": dns_server,
+        "arp_table": arp_table,
+        "listening_ports": ports
+    }
+    save_network_data(data)
+
 
 if __name__ == "__main__":
     main()
